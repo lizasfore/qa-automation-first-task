@@ -1,0 +1,52 @@
+name: Pipeline
+
+on:
+  push:
+    branches:
+      - main # or your preferred branch name
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Install Dependencies
+        run: |
+          npm ci   # or any other command to install your dependencies
+
+      - name: Run Tests
+        run: |
+          npx playwright test  # or any other command to run your tests
+
+      - name: Copy Allure Data
+        run: |
+          # Add commands to copy Allure data from previous runs
+          # For example:
+          cp -r allure-results previous-allure-data
+
+      - name: Generate New Allure Report
+        run: |
+          # Add commands to generate a new Allure report
+          # For example:
+          allure generate allure-results -o allure-report
+
+      - name: Push Report to Branch
+        run: |
+          git checkout -b update-branch  # Replace new-branch-name with your desired branch name
+          git add allure-report
+          git commit -m "Add new Allure report"
+          git push origin update-branch
+
+      - name: Set up GitHub Pages
+        run: |
+          git checkout update-branch  # Replace new-branch-name with your branch name
+          git branch -D gh-pages  # Delete the existing gh-pages branch if it exists
+          git checkout -b gh-pages
+          git push origin gh-pages
+
+      - name: Cleanup
+        run: |
+          # Add cleanup commands if necessary
