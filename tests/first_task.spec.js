@@ -10,7 +10,7 @@ const { ScriptWPage } = require("../tests/pages/scriptWriter.page.js");
 test.describe("internship task", () => {
   test.beforeEach(async ({ page }) => {
     // Go to the starting url before each test.
-    await page.goto("https://www.motionelements.com/");
+    await page.goto("https://motionelements.com/");
   });
 
   test("should not sign up with wrong inputs", async ({ page }) => {
