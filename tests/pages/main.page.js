@@ -15,7 +15,7 @@ exports.MainPage = class MainPage {
     );
     this.learnMoreBtn = page.locator("//a[@rel='license' and @class]");
     this.videoScriptWriter = page.locator(
-      "a[href='https://www.motionelements.com/ai-scriptwriter']"
+      "li > a[href='https://www.motionelements.com/ai-scriptwriter']"
     );
     this.loginBtn = page.locator("//button[contains(text(), 'Login')]");
   }
